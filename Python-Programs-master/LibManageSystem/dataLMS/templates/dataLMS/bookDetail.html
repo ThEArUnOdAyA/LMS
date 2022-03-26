@@ -1,0 +1,89 @@
+{% load tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{object.title}}</title>
+    {% tailwind_css %}
+</head>
+
+<body class="bg-gradient-to-r from-yellow-200 via-pink-200 to-pink-400 font-bold">
+    <div class="grid grid-cols-3">
+        <section class=" w-60 h-10 mt-7 ml-5 leading-none ">
+            <h1 class="  backdrop-filter backdrop-blur-lg bg-gradient-to-r from-rose-700 to-pink-600 bg-opacity-5 rounded-full p-2 text-stone-50  shadow-xl text-2xl font-serif font-bold text-left italic 
+                ">{{ object.title }}</h1>
+        </section>
+        <img src="https://www.pixelstalk.net/wp-content/uploads/2016/06/Amazing-Old-Book-Desktop-Wallpapers.jpg" alt=""
+            class="w-50 h-40 col-start-3 col-span-3 rounded-lg m-4 shadow-lg shadow-black">
+    </div>
+
+    <div class="text-xl font-bold text-slate-800 ">
+        <section class="text-justify leading-[2px] mr-10 ">
+            <h2
+                class="text-right  text-transparent bg-clip-text bg-gradient-to-r mr-12 from-sky-400 via-cyan-600 to-rose-600 font-extrabold italic underline text-2xl ">
+                {{ object.author }}
+            </h2>
+        </section>
+        {% if return %}
+        <div>
+            <form action="{% url 'return' object.slug %}" method="POST">
+                {% csrf_token %}
+                <div class="flex flex-col justify-center items-center ">
+                    <input type="submit" value="Return This Book"
+                        class="bg-gradient-to-r from-fuchsia-600 to-pink-600 rounded-lg border-4 border-double shadow-gray-600 text-white shadow-md border-white p-2 cursor-pointer mt-2">
+                </div>
+            </form>
+            {% else %}
+            <form action="{{ object.get_absolute_url }}" method="POST" class="space-y-2">
+                {% csrf_token %}
+                <div class="flex flex-col justify-center items-center ">
+                    <input type="submit" value="Issue This Book"
+                        class="bg-gradient-to-r from-fuchsia-600 to-pink-600 rounded-lg border-4 border-double shadow-gray-600 text-white shadow-md border-white p-2 cursor-pointer mt-2">
+                </div>
+                <div class="flex flex-col justify-center items-center">
+                    <a href="{% url 'account' %}" class="bg-gradient-to-bl from-sky-400 to-blue-800 rounded-lg  outline-double shadow-gray-600 text-white shadow-md border-white p-2 cursor-pointer mt-2">Accounts</a>
+                </div>
+            </form>
+            {% endif %}
+            <br>
+            <br>
+             <div class="flex flex-col justify-center">
+                <div class="bg-blue-600 shadow-lg mx-auto w-96 max-w-full text-sm pointer-events-auto bg-clip-padding rounded-lg block mb-3"
+                    id="static-example" role="alert" aria-live="assertive" aria-atomic="true" data-mdb-autohide="false">
+                    <div
+                        class="bg-blue-600 flex justify-between items-center py-2 px-3 bg-clip-padding border-b border-blue-500 rounded-t-lg">
+                        <p class="font-bold text-white flex items-center">
+                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="info-circle"
+                                class="w-4 h-4 mr-2 fill-current" role="img" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 512 512">
+                                <path fill="currentColor"
+                                    d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z">
+                                </path>
+                            </svg>
+                            Book Status
+                        </p>
+                        <div class="flex items-center">
+                            <p class="text-white opacity-90 text-xs">11 mins ago</p>
+                            <button type="button"
+                                class="btn-close btn-close-white box-content w-4 h-4 ml-2 text-white border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-white hover:opacity-75 hover:no-underline"
+                                data-mdb-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-blue-600 rounded-b-lg break-words text-white">
+
+                        {% if status %}
+                        {{ status }}
+                        {% else %}
+                        Book Not Issued
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+        </div
+</body>
+
+</html>

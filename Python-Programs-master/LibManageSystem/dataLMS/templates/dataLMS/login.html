@@ -1,0 +1,39 @@
+{% load tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    {% tailwind_css %}
+</head>
+   <body class="  bg-gradient-to-r from-slate-800 via-gray-600 to-blue-800 p-4 ">
+    <div class="flex  justify-center">
+        <form action="{% url 'login' %}" method="POST" class=" justify-center ">
+               {% csrf_token %}
+               {% for items in form %}
+                <section class="font-bold text-white italic text-2xl mt-5">
+                    {{items.label}}:
+                </section>
+                {{items}}
+                <br>
+                {% endfor %}
+                <div >
+                </div>
+                
+                <input type="submit" value="Login" class="rounded font-bold text-xl w-40 h-10 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600  text-white ml-[4rem] mt-10 ">
+           </form>
+
+    </div>  
+       <section class="italic text-white ml-[32rem] mt-2">
+           OR
+       </section>
+       <div>
+           <button class="ml-[28rem] mt-5  rounded font-bold text-xl w-40 h-10   text-white
+            bg-gradient-to-r from-purple-400 to-yellow-400 ">
+               <a href="{% url 'register' %}">Sign Up</a>
+           </button>
+       </div>
+   </body> 
+</html>
